@@ -6,11 +6,11 @@ class Questions extends Component{
         super(props);
 
         this.state={
-            isActive:[true,false,false],
-            isClickAnswer:false,
-            score:0,
-            finalScore:0,
-            isFinshQuiz:false
+            isActive:[true,false,false],  // loads the first section of questions
+            isClickAnswer:false, //check if the answer has been clicked
+            score:0,//initialize score value
+            finalScore:0,//final score value after three questions
+            isFinshQuiz:false // check if the question has been finished
         }
 
     this.handleAnswerClick = this.handleAnswerClick.bind(this);
@@ -19,7 +19,7 @@ class Questions extends Component{
     }
 
 
-
+//calculate the score value 
 calScore(){
 
     let scoreVal= Math.round(this.state.score+100/3)
@@ -37,9 +37,9 @@ calScore(){
 
 handleAnswerClick(e){
 
-const Active =[false,false,false];
-const targetId = parseInt(e.target.dataset.id )
-const answerValue = e.target.dataset.value;
+const Active =[false,false,false]; // initialize the active section value
+const targetId = parseInt(e.target.dataset.id ) 
+const answerValue = e.target.dataset.value; //get the  answer value
 
 
 if(answerValue==='true'){
@@ -48,7 +48,7 @@ if(answerValue==='true'){
     this.calScore();
     this.setState({
 
-        isClickAnswer:true
+        isClickAnswer:true  // if one of the answers is clicked,then disable all the links 
     })
 }
 if(answerValue==='false'){
@@ -60,14 +60,14 @@ if(answerValue==='false'){
     })
 }
 
-
+// if this question is the last quesion 
 if(targetId===Active.length-1){
     
     setTimeout(()=>{
 
         this.setState({
 
-            finalScore:this.state.score,
+            finalScore:this.state.score, 
             isFinshQuiz:true
         })
     },1000)
@@ -75,7 +75,9 @@ if(targetId===Active.length-1){
 }
 else
 {
+//display next section 
 Active[targetId+1]=true;
+//display every new question selections every 2 seconds
 setTimeout(()=>{
     this.setState({
 
@@ -88,6 +90,7 @@ setTimeout(()=>{
 
 }
 
+//to test data
 componentDidMount(){
 
     console.log(this.props.questionsData);
@@ -102,6 +105,7 @@ componentDidMount(){
 
                {    
                     this.props.questionsData.map((el,index)=>{
+                    //display the first section at the beginning
                     if(this.state.isActive[index]){
                     return(
                     <section key={index}>
@@ -115,7 +119,7 @@ componentDidMount(){
                                         onClick={this.handleAnswerClick} 
                                         data-id={index} 
                                         data-value={answer.value} 
-                                        className={this.state.isClickAnswer?'disable-link':'enable-link'}
+                                        className={this.state.isClickAnswer?'disable-link':'enable-link'}//toggle class to control the links
                                         href="#0"
                                          > 
                                         {index01+1}.{answer.content}

@@ -13,7 +13,7 @@ class App extends Component {
       }
 this.handleClick = this.handleClick.bind(this);
   }
-
+//fetch data using axios
   componentDidMount(){
     const dataQuery = 'quiz.json';
     axios.get(dataQuery)
@@ -21,11 +21,11 @@ this.handleClick = this.handleClick.bind(this);
 
         this.setState({
 
-            questionList:[...res.data.quizzes]
+            questionList:[...res.data.quizzes] //copy data
 
 
         },()=>{
-            console.log(this.state.questionList);
+            console.log(this.state.questionList); //testing data
 
         })
     });
@@ -37,7 +37,7 @@ handleClick(e){
     this.setState({
 
         isClick:true,
-        currentButton:e.target.dataset.id
+        currentButton:e.target.dataset.id  //get current index 
     })
    
 
@@ -50,6 +50,7 @@ handleClick(e){
           <h1 className="header">Redacademy entrance test</h1>
           <div className="title">
                 {
+                  //loop throught the data to output button value
                   this.state.questionList.map((el,index)=>{
 
                     if(!this.state.isClick){
@@ -62,7 +63,7 @@ handleClick(e){
                   })
                 }
             { 
-              this.state.isClick?<Questions questionsData={this.state.questionList[this.state.currentButton].questions}/>:''
+              this.state.isClick?<Questions questionsData={this.state.questionList[this.state.currentButton].questions}/>:'' //pass the clicked button value to the component
             }
           </div>
       </div>
