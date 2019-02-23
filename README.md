@@ -1,3 +1,5 @@
 # redacademy-adp-entrance
+# clone the repo
+# open questions-app 
 # run npm install
-# then npm start
+# npm start
